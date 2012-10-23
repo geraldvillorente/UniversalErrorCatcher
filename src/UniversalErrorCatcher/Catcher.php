@@ -129,7 +129,7 @@ class UniversalErrorCatcher_Catcher
                 try {
                     call_user_func_array($callback, array($caughtException));
                 } catch (Exception $e) {
-                    // we did our best so there is nothing left we can do.  
+                    // we did our best so there is nothing left we can do.
                 }
             }
         }
@@ -153,7 +153,8 @@ class UniversalErrorCatcher_Catcher
 
         // it is not possible to throw an exception from __toString method.
         if ($throwError) {
-            $trace = debug_backtrace(false);
+            $option = (defined('DEBUG_BACKTRACE_IGNORE_ARGS')) ? DEBUG_BACKTRACE_IGNORE_ARGS | DEBUG_BACKTRACE_PROVIDE_OBJECT : false;
+            $trace = debug_backtrace($option);
             array_shift($trace);
             foreach ($trace as $frame) {
                 if ($frame['function'] == '__toString') {
